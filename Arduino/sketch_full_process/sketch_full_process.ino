@@ -19,7 +19,7 @@ boolean queuecomand[20];
 
 void addti() {
   // 6000 mean 6 seconds
-  queuetime[indexback_ti] = millis() + 6000;
+  queuetime[indexback_ti] = millis() + 2000;
   indexback_ti++;
   if (indexback_ti == 20) {
     indexback_ti = 0;
@@ -75,7 +75,7 @@ int ittimetodothefront() {
 void Check() { //check chilli pass yet
   lightvalue = analogRead(ldr);
   //Serial.println("kjhgf");
-  if (lightvalue < 359) { //have chilli
+  if (lightvalue < 130) { //have chilli
     if (continous == false) {
       continous = true;
     }
@@ -92,7 +92,7 @@ void Recieve() { //recieve 0 or 1 //serial communication
   if (Serial.available() > 0) {
     serialinput = Serial.parseInt();
     //Serial.println(serialinput);
-  }
+  
   if (serialinput == 0) {
     //servo.write(posG);
     //delay(100);
@@ -103,7 +103,7 @@ void Recieve() { //recieve 0 or 1 //serial communication
     addti();
     addco(true);
   }
-}
+}}
 void Servocontrol() {
   int isnow = ittimetodothefront();
   if (isnow == 0) {
