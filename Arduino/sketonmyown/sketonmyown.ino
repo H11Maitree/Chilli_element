@@ -5,15 +5,15 @@ Servo servo;
 int lightvalue;
 int serialinput;
 boolean continous = false ;
-int posG = 30; //degree of good chilli
-int posB = 120; //degree of bad chilli
+int posG = 80; //degree of good chilli
+int posB = 135; //degree of bad chilli
 int ldr = A0;
 
 
 void Check() { //check chilli pass yet
   lightvalue = analogRead(ldr);
   //Serial.println("kjhgf");
-  if (lightvalue < 238) { //have chilli
+  if (lightvalue < 650) { //have chilli                calibrate
     if (continous == false) {
       continous = true;
     }
@@ -49,9 +49,9 @@ void setup() {
   Serial.begin(9600);
   servo.attach(9);
   pinMode(ldr, INPUT);
-  servo.write(0);
+  servo.write(posG);
   delay(500);
-  servo.write(180);
+  servo.write(posB);
   delay(500);
   continous = false;
 }
