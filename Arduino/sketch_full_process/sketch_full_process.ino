@@ -19,7 +19,7 @@ boolean queuecomand[20];
 
 void addti() {
   // 6000 mean 6 seconds
-  queuetime[indexback_ti] = millis() + 2000;
+  queuetime[indexback_ti] = millis() + 6000;
   indexback_ti++;
   if (indexback_ti == 20) {
     indexback_ti = 0;
@@ -49,6 +49,10 @@ void popco() {
 int ittimetodothefront() {
   if (indexfront_ti != indexback_ti ) {
     if (queuetime[indexfront_ti] <= millis()) {
+      Serial.print("queue : ");
+      Serial.print(queuetime[indexfront_ti]);
+      Serial.print(queuetime[(indexfront_ti+1)%20]);
+      Serial.println(queuetime[(indexfront_ti+2)%20]);
       boolean commandcell = queuecomand[indexfront_co];
       popti();
       popco();
@@ -75,7 +79,7 @@ int ittimetodothefront() {
 void Check() { //check chilli pass yet
   lightvalue = analogRead(ldr);
   //Serial.println("kjhgf");
-  if (lightvalue < 130) { //have chilli
+  if (lightvalue < 40) { //have chilli
     if (continous == false) {
       continous = true;
     }
@@ -92,7 +96,6 @@ void Recieve() { //recieve 0 or 1 //serial communication
   if (Serial.available() > 0) {
     serialinput = Serial.parseInt();
     //Serial.println(serialinput);
-  
   if (serialinput == 0) {
     //servo.write(posG);
     //delay(100);
@@ -107,12 +110,14 @@ void Recieve() { //recieve 0 or 1 //serial communication
 void Servocontrol() {
   int isnow = ittimetodothefront();
   if (isnow == 0) {
+    Serial.print("dogood ");
     //bad chilie
     servo.write(posB);
     delay(100);
   }
   if (isnow == 1){
     //good chilie
+    Serial.print("dobad ");
     servo.write(posG);
     delay(100);
   }
@@ -131,11 +136,12 @@ void setup() {
 }
 
 void loop() {
+  Servocontrol();
+  delay(1);
   Check();
   //Serial.println("outcheck");
   delay(1);
   Recieve();
   delay(1);
-  Servocontrol();
-  delay(1);
+  
 }
