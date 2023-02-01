@@ -1,5 +1,6 @@
 # Chilli_element
 Chilli separator machine 
+![Demonstration Graphics](Chili_classification_graphic.png "Demonstration Graphics")
 # Arduino Code
 https://github.com/H11Maitree/Chilli_element/blob/master/Arduino/sketonmyown/sketonmyown.ino
 # Python image processing from Webcam
